@@ -51,6 +51,7 @@ unreal-engine|unrealengine|unrealengine.com
 visual-studio-community|visualstudio|visualstudio.microsoft.com
 godot|godotengine|godotengine.org
 flightgear|-|flightgear.org
+supertuxkart|-|supertuxkart.net
 vulkan|vulkan|vulkan.org
 opengl|opengl|opengl.org
 internet-archive|internetarchive|archive.org
