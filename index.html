@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Are These Free?</title>
+<meta name="description" content="A list of operating systems, tools and creative software that cost nothing to use, and why they are free.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #202122;
+    --muted: #54595d;
+    --link: #0645ad;
+    --line: #a2a9b1;
+    --line-soft: #c8ccd1;
+    --row-line: #eaecf0;
+    --panel: #f8f9fa;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  h1, h2 {
+    font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
+    font-weight: 400;
+  }
+
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.88em; }
+
+  /* ---- Header ---- */
+  .site-head { background: var(--panel); border-bottom: 1px solid var(--line-soft); }
+  .site-head .in { max-width: 1040px; margin: 0 auto; padding: 24px 22px 20px; }
+  .site-head h1 { margin: 0; font-size: 2rem; line-height: 1.15; }
+  .site-head p { margin: 6px 0 0; color: var(--muted); font-size: 0.92rem; }
+
+  /* ---- Toolbar ---- */
+  .toolbar { border-bottom: 1px solid var(--line-soft); background: #fff; }
+  .toolbar .in {
+    max-width: 1040px; margin: 0 auto; padding: 12px 22px;
+    display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+  }
+  .toolbar .in + .in { padding-top: 0; }
+
+  .grow { flex: 1 1 260px; min-width: 180px; }
+
+  input[type="search"], select {
+    font: inherit;
+    font-size: 0.88rem;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 6px 8px;
+  }
+  input[type="search"]:focus, select:focus {
+    outline: 2px solid var(--link);
+    outline-offset: -1px;
+  }
+
+  .count { color: var(--muted); font-size: 0.84rem; margin-left: auto; white-space: nowrap; }
+
+  .filters { font-size: 0.86rem; }
+  .filters .lbl { color: var(--muted); margin-right: 4px; }
+  .flt { color: var(--link); margin-right: 9px; white-space: nowrap; }
+  .flt.on { color: var(--text); font-weight: 700; text-decoration: none; }
+
+  /* ---- Layout ---- */
+  .wrap {
+    max-width: 1040px; margin: 0 auto; padding: 22px;
+    display: flex; gap: 34px; align-items: flex-start;
+  }
+
+  .toc { flex: 0 0 200px; position: sticky; top: 16px; font-size: 0.9rem; }
+  .toc h2 {
+    font-family: inherit; font-size: 0.95rem; font-weight: 700;
+    margin: 0 0 8px; color: var(--text);
+  }
+  .toc ol { margin: 0; padding-left: 1.25em; }
+  .toc li { margin: 2px 0; }
+
+  main { flex: 1 1 auto; min-width: 0; }
+
+  main h2 {
+    font-size: 1.5rem; margin: 34px 0 12px; padding-bottom: 5px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  #content > h2:first-child { margin-top: 0; }
+
+  /* ---- About / legend ---- */
+  dl.about { margin: 0; font-size: 0.94rem; }
+  dl.about dt { font-weight: 700; margin-top: 10px; }
+  dl.about dt:first-child { margin-top: 0; }
+  dl.about dd { margin: 1px 0 0; color: var(--muted); }
+
+  /* ---- Table ---- */
+  table.ref { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  table.ref thead th {
+    text-align: left; background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    padding: 7px 10px; font-size: 0.8rem; color: var(--muted);
+  }
+  table.ref td { border-bottom: 1px solid var(--row-line); padding: 10px; vertical-align: top; }
+  table.ref td.name { width: 42%; }
+  table.ref td.links { white-space: nowrap; }
+
+  .nm { display: flex; gap: 10px; align-items: flex-start; }
+  .logo { width: 22px; height: 22px; object-fit: contain; flex: none; margin-top: 1px; }
+  .mono {
+    width: 22px; height: 22px; flex: none; margin-top: 1px;
+    display: grid; place-items: center;
+    background: var(--panel); border: 1px solid var(--line-soft); border-radius: 2px;
+    font-size: 0.6rem; font-weight: 700; color: var(--muted);
+  }
+  .desc { color: var(--muted); font-size: 0.85rem; margin-top: 1px; }
+  .plat { font-size: 0.85rem; }
+  .free { font-size: 0.85rem; }
+  .lic { color: var(--muted); font-size: 0.82rem; }
+
+  .empty { display: none; color: var(--muted); padding: 24px 0; }
+
+  /* ---- Footer ---- */
+  footer { border-top: 1px solid var(--line-soft); background: var(--panel); margin-top: 34px; }
+  footer .in { max-width: 1040px; margin: 0 auto; padding: 16px 22px; color: var(--muted); font-size: 0.83rem; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 800px) {
+    .wrap { flex-direction: column; gap: 18px; }
+    .toc { position: static; flex: none; width: 100%; }
+    .toc ol { columns: 2; }
+
+    table.ref thead { display: none; }
+    table.ref, table.ref tbody, table.ref tr, table.ref td { display: block; width: auto; }
+    table.ref tr { border-bottom: 1px solid var(--line-soft); padding: 10px 0; }
+    table.ref td { border: none; padding: 2px 0; }
+    table.ref td.name { width: auto; }
+    table.ref td[data-label]::before {
+      content: attr(data-label) ": ";
+      color: var(--muted);
+    }
+    table.ref td.links { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="in">
+    <h1>How Are These Free?</h1>
+    <p>A list of operating systems, tools and creative software that cost nothing to use.</p>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="in">
+    <input class="grow" id="search" type="search" placeholder="Search names or descriptions" aria-label="Search">
+    <select id="sort" aria-label="Sort">
+      <option value="az">Name A to Z</option>
+      <option value="za">Name Z to A</option>
+      <option value="lic">Sort by licence</option>
+    </select>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="in filters">
+    <span><span class="lbl">Show</span><span id="ffilter"></span></span>
+    <span><span class="lbl">Platform</span><span id="pfilter"></span></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <nav class="toc" id="toc" aria-label="Contents"></nav>
+
+  <main>
+    <h2 id="about">How these are free</h2>
+    <dl class="about">
+      <dt>Open source</dt>
+      <dd>Source code is available under a licence that permits the relevant freedoms.</dd>
+      <dt>Free proprietary</dt>
+      <dd>Free to use, but the source code is not fully open.</dd>
+      <dt>Open standard or public domain</dt>
+      <dd>Things like Vulkan and SQLite, which do not fit neatly into the first two categories.</dd>
+    </dl>
+
+    <div id="content"></div>
+    <p class="empty" id="empty">No entries match the current search and filters.</p>
+  </main>
+</div>
+
+<footer>
+  <div class="in">
+    Logos belong to their respective projects and are used here for identification only. Most come from
+    <a href="https://simpleicons.org" target="_blank" rel="noopener">Simple Icons</a> (released under CC0),
+    and the rest are the favicon from each project's own website.
+  </div>
+</footer>
+
+<script>
+const FREEDOM = {
+  open: { label: "Open source",                 short: "Open source",  desc: "Source code is available under a licence that permits the relevant freedoms." },
+  prop: { label: "Free proprietary",            short: "Free proprietary", desc: "Free to use, but the source code isn't fully open." },
+  std:  { label: "Open standard / public domain", short: "Open standard", desc: "For things like Vulkan and SQLite, which don't fit neatly into the first two categories." }
+};
+
+const CATEGORIES = [
+  { id: "os",       name: "Operating systems and desktop environments" },
+  { id: "compat",   name: "Windows compatibility and emulation" },
+  { id: "creative", name: "Creative software" },
+  { id: "dev",      name: "Programming and development" },
+  { id: "game",     name: "Gaming and game development" },
+  { id: "net",      name: "Internet, archives and maps" },
+  { id: "util",     name: "Utilities and multimedia" },
+  { id: "web",      name: "Web browsers and game launchers" }
+];
+
+/* ------------------------------------------------------------------ *
+ *  The programs.
+ *  platforms: where it runs.  home/download/source: links.
+ * ------------------------------------------------------------------ */
+const PROGRAMS = [
+  /* --- Operating systems and desktop environments --- */
+  { name: "Linux", slug: "linux", cat: "os", freedom: "open", license: "GPL-2.0",
+    desc: "The Linux kernel and the many operating systems built around it.",
+    platforms: ["Linux"], home: "https://www.kernel.org/", download: "https://www.kernel.org/pub/", source: "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git" },
+
+  { name: "OpenBSD", slug: "openbsd", cat: "os", freedom: "open", license: "ISC",
+    desc: "Security-focused, open-source Unix-like operating system.",
+    platforms: ["BSD"], home: "https://www.openbsd.org/", download: "https://www.openbsd.org/faq/faq4.html", source: "https://github.com/openbsd/src" },
+
+  { name: "ReactOS", slug: "reactos", cat: "os", freedom: "open", license: "GPL-2.0",
+    desc: "An open-source attempt at Windows compatibility.",
+    platforms: ["Windows"], home: "https://reactos.org/", download: "https://reactos.org/download/", source: "https://github.com/reactos/reactos" },
+
+  { name: "Darwin", slug: "darwin", cat: "os", freedom: "open", license: "APSL-2.0",
+    desc: "Apple's partly open-source operating-system foundation.",
+    platforms: ["macOS"], home: "https://opensource.apple.com/", download: "https://opensource.apple.com/releases/", source: "https://github.com/apple-oss-distributions" },
+
+  { name: "FreeBSD", slug: "freebsd", cat: "os", freedom: "open", license: "BSD-2-Clause",
+    desc: "A complete open-source operating system.",
+    platforms: ["BSD"], home: "https://www.freebsd.org/", download: "https://www.freebsd.org/where/", source: "https://github.com/freebsd/freebsd-src" },
+
+  { name: "KDE Plasma", slug: "kde-plasma", cat: "os", freedom: "open", license: "GPL / LGPL",
+    desc: "A highly customisable desktop environment.",
+    platforms: ["Linux", "BSD"], home: "https://kde.org/plasma-desktop/", download: "https://kde.org/plasma-desktop/#download", source: "https://invent.kde.org/plasma" },
+
+  { name: "GNOME", slug: "gnome", cat: "os", freedom: "open", license: "GPL / LGPL",
+    desc: "Another major Linux desktop environment.",
+    platforms: ["Linux", "BSD"], home: "https://www.gnome.org/", download: "https://www.gnome.org/getting-gnome/", source: "https://gitlab.gnome.org/GNOME" },
+
+  { name: "Budgie", slug: "budgie", cat: "os", freedom: "open", license: "GPL-3.0",
+    desc: "A Linux desktop environment.",
+    platforms: ["Linux"], home: "https://buddiesofbudgie.org/", download: "https://buddiesofbudgie.org/", source: "https://github.com/BuddiesOfBudgie" },
+
+  { name: "Haiku", slug: "haiku", cat: "os", freedom: "open", license: "MIT",
+    desc: "An operating system inspired by BeOS.",
+    platforms: ["Haiku"], home: "https://www.haiku-os.org/", download: "https://www.haiku-os.org/get-haiku/", source: "https://github.com/haiku/haiku" },
+
+  { name: "SerenityOS", slug: "serenityos", cat: "os", freedom: "open", license: "BSD-2-Clause",
+    desc: "An operating system built from scratch.",
+    platforms: ["SerenityOS"], home: "https://serenityos.org/", download: "https://github.com/SerenityOS/serenity#how-do-i-build-and-run-serenityos", source: "https://github.com/SerenityOS/serenity" },
+
+  { name: "SteamOS", slug: "steamos", cat: "os", freedom: "prop", license: "Proprietary base, open components",
+    desc: "Valve's Linux-based gaming operating system.",
+    platforms: ["Linux"], home: "https://store.steampowered.com/steamos", download: "https://store.steampowered.com/steamos/download", source: null },
+
+  /* --- Windows compatibility and emulation --- */
+  { name: "Wine", slug: "wine", cat: "compat", freedom: "open", license: "LGPL-2.1",
+    desc: "Runs many Windows applications on Linux and other Unix-like systems.",
+    platforms: ["Linux", "macOS", "BSD"], home: "https://www.winehq.org/", download: "https://wiki.winehq.org/Download", source: "https://gitlab.winehq.org/wine/wine" },
+
+  { name: "Proton", slug: "proton", cat: "compat", freedom: "open", license: "LGPL-2.1 / GPL",
+    desc: "Valve's Wine-based compatibility layer for Windows games.",
+    platforms: ["Linux"], home: "https://github.com/ValveSoftware/Proton", download: "https://github.com/ValveSoftware/Proton/releases", source: "https://github.com/ValveSoftware/Proton" },
+
+  { name: "Xenia", slug: "xenia", cat: "compat", freedom: "open", license: "MIT",
+    desc: "Xbox 360 emulator.",
+    platforms: ["Windows"], home: "https://xenia.jp/", download: "https://github.com/xenia-project/xenia/releases", source: "https://github.com/xenia-project/xenia" },
+
+  { name: "RPCS3", slug: "rpcs3", cat: "compat", freedom: "open", license: "GPL-2.0",
+    desc: "PlayStation 3 emulator.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://rpcs3.net/", download: "https://rpcs3.net/download", source: "https://github.com/RPCS3/rpcs3" },
+
+  { name: "DXVK", slug: "dxvk", cat: "compat", freedom: "open", license: "Zlib",
+    desc: "Translates Direct3D 9, 10 and 11 calls to Vulkan.",
+    platforms: ["Linux", "Windows"], home: "https://github.com/doitsujin/dxvk", download: "https://github.com/doitsujin/dxvk/releases", source: "https://github.com/doitsujin/dxvk" },
+
+  { name: "VKD3D-Proton", slug: "vkd3d-proton", cat: "compat", freedom: "open", license: "LGPL-2.1",
+    desc: "Translates Direct3D 12 to Vulkan for Proton.",
+    platforms: ["Linux"], home: "https://github.com/HansKristian-Work/vkd3d-proton", download: "https://github.com/HansKristian-Work/vkd3d-proton/releases", source: "https://github.com/HansKristian-Work/vkd3d-proton" },
+
+  /* --- Creative software --- */
+  { name: "Blender", slug: "blender", cat: "creative", freedom: "open", license: "GPL-2.0",
+    desc: "3D modelling, animation, rendering and more.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://www.blender.org/", download: "https://www.blender.org/download/", source: "https://projects.blender.org/blender/blender" },
+
+  { name: "Photopea", slug: "photopea", cat: "creative", freedom: "prop", license: "Proprietary (ad-supported)",
+    desc: "Browser-based image editor similar to Photoshop.",
+    platforms: ["Web"], home: "https://www.photopea.com/", download: "https://www.photopea.com/", source: null },
+
+  { name: "DaVinci Resolve", slug: "davinci-resolve", cat: "creative", freedom: "prop", license: "Proprietary (free edition)",
+    desc: "Professional video editing and colour grading, with a free edition.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://www.blackmagicdesign.com/products/davinciresolve", download: "https://www.blackmagicdesign.com/support/family/davinci-resolve-and-fusion", source: null },
+
+  { name: "GarageBand", slug: "garageband", cat: "creative", freedom: "prop", license: "Proprietary (free with Apple devices)",
+    desc: "Apple's free music creation software.",
+    platforms: ["macOS", "iOS"], home: "https://www.apple.com/mac/garageband/", download: "https://apps.apple.com/app/garageband/id408709785", source: null },
+
+  { name: "LMMS", slug: "lmms", cat: "creative", freedom: "open", license: "GPL-2.0",
+    desc: "Open-source music production software.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://lmms.io/", download: "https://lmms.io/download", source: "https://github.com/LMMS/lmms" },
+
+  { name: "Shotcut", slug: "shotcut", cat: "creative", freedom: "open", license: "GPL-3.0",
+    desc: "Free video editor.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://shotcut.org/", download: "https://shotcut.org/download/", source: "https://github.com/mltframework/shotcut" },
+
+  { name: "Kdenlive", slug: "kdenlive", cat: "creative", freedom: "open", license: "GPL-2.0",
+    desc: "Open-source video editor.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://kdenlive.org/", download: "https://kdenlive.org/download/", source: "https://invent.kde.org/multimedia/kdenlive" },
+
+  { name: "GIMP", slug: "gimp", cat: "creative", freedom: "open", license: "GPL-3.0",
+    desc: "Open-source image editor.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://www.gimp.org/", download: "https://www.gimp.org/downloads/", source: "https://gitlab.gnome.org/GNOME/gimp" },
+
+  { name: "Audacity", slug: "audacity", cat: "creative", freedom: "open", license: "GPL-2.0",
+    desc: "Audio recording and editing.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://www.audacityteam.org/", download: "https://www.audacityteam.org/download/", source: "https://github.com/audacity/audacity" },
+
+  { name: "Krita", slug: "krita", cat: "creative", freedom: "open", license: "GPL-3.0",
+    desc: "Digital painting and illustration.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://krita.org/", download: "https://krita.org/en/download/", source: "https://invent.kde.org/graphics/krita" },
+
+  { name: "KiCad", slug: "kicad", cat: "creative", freedom: "open", license: "GPL-3.0",
+    desc: "Electronic circuit and PCB design.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://www.kicad.org/", download: "https://www.kicad.org/download/", source: "https://gitlab.com/kicad/code/kicad" },
+
+  { name: "FreeCAD", slug: "freecad", cat: "creative", freedom: "open", license: "LGPL-2.1",
+    desc: "Parametric CAD modelling.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://www.freecad.org/", download: "https://www.freecad.org/downloads.php", source: "https://github.com/FreeCAD/FreeCAD" },
+
+  /* --- Programming and development --- */
+  { name: "C", slug: "c", cat: "dev", freedom: "std", license: "ISO standard",
+    desc: "General-purpose systems programming language; the basis of Unix.",
+    platforms: ["Cross-platform"], home: "https://en.cppreference.com/w/c", download: null, source: null },
+
+  { name: "C++", slug: "cplusplus", cat: "dev", freedom: "std", license: "ISO standard",
+    desc: "Multi-paradigm language built on C, used for performance-critical software.",
+    platforms: ["Cross-platform"], home: "https://isocpp.org/", download: null, source: null },
+
+  { name: "Python", slug: "python", cat: "dev", freedom: "open", license: "PSF-2.0",
+    desc: "Readable, general-purpose language with a huge ecosystem.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://www.python.org/", download: "https://www.python.org/downloads/", source: "https://github.com/python/cpython" },
+
+  { name: "C#", slug: "csharp", cat: "dev", freedom: "std", license: "ECMA-334 standard",
+    desc: "Modern, object-oriented language for .NET.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://dotnet.microsoft.com/languages/csharp", download: "https://dotnet.microsoft.com/download", source: null },
+
+  { name: "JavaScript", slug: "javascript", cat: "dev", freedom: "std", license: "ECMA-262 standard",
+    desc: "The language of the web, also used on the server via runtimes like Node.",
+    platforms: ["Web"], home: "https://developer.mozilla.org/en-US/docs/Web/JavaScript", download: null, source: null },
+
+  { name: "HTML", slug: "html", cat: "dev", freedom: "std", license: "WHATWG living standard",
+    desc: "Markup language that structures content on the web.",
+    platforms: ["Web"], home: "https://developer.mozilla.org/en-US/docs/Web/HTML", download: null, source: null },
+
+  { name: "Java", slug: "java", cat: "dev", freedom: "open", license: "GPL-2.0 (OpenJDK)",
+    desc: "Object-oriented language that runs on the JVM across platforms.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://openjdk.org/", download: "https://openjdk.org/install/", source: "https://github.com/openjdk/jdk" },
+
+  { name: "Rust", slug: "rust", cat: "dev", freedom: "open", license: "MIT / Apache-2.0",
+    desc: "Memory-safe systems language focused on performance and reliability.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://www.rust-lang.org/", download: "https://www.rust-lang.org/tools/install", source: "https://github.com/rust-lang/rust" },
+
+  { name: "Unreal Engine", slug: "unreal-engine", cat: "dev", freedom: "prop", license: "Proprietary (free to start, royalty)",
+    desc: "Free to use under Epic's terms, though not open source.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://www.unrealengine.com/", download: "https://www.unrealengine.com/download", source: "https://github.com/EpicGames/UnrealEngine" },
+
+  { name: "Visual Studio Community", slug: "visual-studio-community", cat: "dev", freedom: "prop", license: "Proprietary (free for eligible users)",
+    desc: "Free IDE under Microsoft's eligibility and licence terms.",
+    platforms: ["Windows", "macOS"], home: "https://visualstudio.microsoft.com/vs/community/", download: "https://visualstudio.microsoft.com/vs/community/", source: null },
+
+  /* --- Gaming and game development --- */
+  { name: "Godot Engine", slug: "godot", cat: "game", freedom: "open", license: "MIT",
+    desc: "Open-source game engine without engine royalties.",
+    platforms: ["Windows", "macOS", "Linux", "BSD", "Web"], home: "https://godotengine.org/", download: "https://godotengine.org/download", source: "https://github.com/godotengine/godot" },
+
+  { name: "Unreal Engine", slug: "unreal-engine", cat: "game", freedom: "prop", license: "Proprietary (free to start, royalty)",
+    desc: "Powerful game engine with a free-to-start licensing model.",
+    platforms: ["Windows", "macOS", "Linux"], home: "https://www.unrealengine.com/", download: "https://www.unrealengine.com/download", source: "https://github.com/EpicGames/UnrealEngine" },
+
+  { name: "FlightGear", slug: "flightgear", cat: "game", freedom: "open", license: "GPL-2.0",
+    desc: "Free, open-source flight simulator.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://www.flightgear.org/", download: "https://www.flightgear.org/download/", source: "https://gitlab.com/flightgear" },
+
+  { name: "Vulkan", slug: "vulkan", cat: "game", freedom: "std", license: "Open standard (Apache-2.0 headers)",
+    desc: "Open graphics and compute API.",
+    platforms: ["Cross-platform"], home: "https://www.vulkan.org/", download: null, source: "https://github.com/KhronosGroup/Vulkan-Headers" },
+
+  { name: "OpenGL", slug: "opengl", cat: "game", freedom: "std", license: "Open standard",
+    desc: "Open graphics API.",
+    platforms: ["Cross-platform"], home: "https://www.opengl.org/", download: null, source: "https://github.com/KhronosGroup/OpenGL-Registry" },
+
+  { name: "Proton", slug: "proton", cat: "game", freedom: "open", license: "LGPL-2.1 / GPL",
+    desc: "Makes thousands of Windows games playable on Linux, with varying compatibility.",
+    platforms: ["Linux"], home: "https://github.com/ValveSoftware/Proton", download: "https://github.com/ValveSoftware/Proton/releases", source: "https://github.com/ValveSoftware/Proton" },
+
+  /* --- Internet, archives and maps --- */
+  { name: "Internet Archive", slug: "internet-archive", cat: "net", freedom: "open", license: "Open-source software",
+    desc: "Enormous digital archive of books, media, software and other material.",
+    platforms: ["Web"], home: "https://archive.org/", download: null, source: "https://github.com/internetarchive" },
+
+  { name: "Wayback Machine", slug: "wayback-machine", cat: "net", freedom: "open", license: "Open-source software",
+    desc: "Historical snapshots of websites.",
+    platforms: ["Web"], home: "https://web.archive.org/", download: null, source: "https://github.com/internetarchive" },
+
+  { name: "OpenStreetMap", slug: "openstreetmap", cat: "net", freedom: "open", license: "ODbL (open data)",
+    desc: "Collaboratively created, openly licensed map data.",
+    platforms: ["Web"], home: "https://www.openstreetmap.org/", download: "https://planet.openstreetmap.org/", source: "https://github.com/openstreetmap" },
+
+  /* --- Utilities and multimedia --- */
+  { name: "VLC", slug: "vlc", cat: "util", freedom: "open", license: "GPL-2.0",
+    desc: "Free media player that handles a huge range of formats.",
+    platforms: ["Windows", "macOS", "Linux", "BSD", "iOS", "Android"], home: "https://www.videolan.org/vlc/", download: "https://www.videolan.org/vlc/#download", source: "https://code.videolan.org/videolan/vlc" },
+
+  { name: "7-Zip", slug: "7zip", cat: "util", freedom: "open", license: "LGPL-2.1 (+ unRAR restriction)",
+    desc: "Free file archiver and compression utility.",
+    platforms: ["Windows", "Linux"], home: "https://www.7-zip.org/", download: "https://www.7-zip.org/download.html", source: "https://github.com/ip7z/7zip" },
+
+  { name: "FFmpeg", slug: "ffmpeg", cat: "util", freedom: "open", license: "LGPL-2.1 / GPL-2.0",
+    desc: "Multimedia processing toolkit used by countless applications.",
+    platforms: ["Cross-platform"], home: "https://ffmpeg.org/", download: "https://ffmpeg.org/download.html", source: "https://git.ffmpeg.org/ffmpeg.git" },
+
+  { name: "SQLite", slug: "sqlite", cat: "util", freedom: "std", license: "Public domain",
+    desc: "Embedded database engine released into the public domain.",
+    platforms: ["Cross-platform"], home: "https://www.sqlite.org/", download: "https://www.sqlite.org/download.html", source: "https://sqlite.org/src" },
+
+  /* --- Web browsers and game launchers --- */
+  { name: "Chromium", slug: "chromium", cat: "web", freedom: "open", license: "BSD-3-Clause",
+    desc: "Open-source browser project underlying several browsers.",
+    platforms: ["Windows", "macOS", "Linux", "BSD"], home: "https://www.chromium.org/", download: "https://www.chromium.org/getting-involved/download-chromium/", source: "https://chromium.googlesource.com/chromium/src/" },
+
+  { name: "Vivaldi", slug: "vivaldi", cat: "web", freedom: "prop", license: "Proprietary (freeware)",
+    desc: "Free browser built on Chromium, but not fully open source.",
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android"], home: "https://vivaldi.com/", download: "https://vivaldi.com/download/", source: null },
+
+  { name: "Epic Games Launcher", slug: "epic-games-launcher", cat: "web", freedom: "prop", license: "Proprietary (freeware)",
+    desc: "Free launcher, with Linux support being worked on.",
+    platforms: ["Windows", "macOS"], home: "https://store.epicgames.com/", download: "https://store.epicgames.com/download", source: null },
+
+  { name: "GOG Galaxy", slug: "gog-galaxy", cat: "web", freedom: "prop", license: "Proprietary (freeware)",
+    desc: "Free game launcher, with Linux support being worked on.",
+    platforms: ["Windows", "macOS"], home: "https://www.gog.com/galaxy", download: "https://www.gog.com/galaxy", source: null }
+];
+
+/* ------------------------------------------------------------------ *
+ *  Filters, sorting and rendering
+ * ------------------------------------------------------------------ */
+const FREEDOM_FILTERS = [["all", "All"], ["open", "Open source"], ["prop", "Free proprietary"], ["std", "Open standard"]];
+const PLATFORM_FILTERS = [["all", "All"], ["Windows", "Windows"], ["macOS", "macOS"], ["Linux", "Linux"], ["BSD", "BSD"], ["Web", "Web"], ["Mobile", "Mobile"]];
+
+const state = { q: "", freedom: "all", platform: "all", sort: "az" };
+
+function matchesPlatform(p) {
+  if (state.platform === "all") return true;
+  if (state.platform === "Mobile") return p.platforms.includes("iOS") || p.platforms.includes("Android");
+  return p.platforms.includes(state.platform);
+}
+
+function matchesQuery(p) {
+  if (!state.q) return true;
+  const hay = (p.name + " " + p.desc + " " + p.license + " " + p.platforms.join(" ")).toLowerCase();
+  return hay.includes(state.q);
+}
+
+function visible(p) {
+  return (state.freedom === "all" || p.freedom === state.freedom) &&
+         matchesPlatform(p) && matchesQuery(p);
+}
+
+function sortItems(list) {
+  const s = [...list];
+  if (state.sort === "az") s.sort((a, b) => a.name.localeCompare(b.name));
+  else if (state.sort === "za") s.sort((a, b) => b.name.localeCompare(a.name));
+  else if (state.sort === "lic") s.sort((a, b) => a.license.localeCompare(b.license) || a.name.localeCompare(b.name));
+  return s;
+}
+
+function linksFor(p) {
+  const out = [];
+  if (p.download) out.push(`<a href="${p.download}" target="_blank" rel="noopener">Download</a>`);
+  if (p.source)   out.push(`<a href="${p.source}" target="_blank" rel="noopener">Source</a>`);
+  if (!p.download && !p.source) out.push(`<a href="${p.home}" target="_blank" rel="noopener">Reference</a>`);
+  return out.join(" &#183; ");
+}
+
+function rowFor(p) {
+  return `<tr>
+    <td class="name">
+      <div class="nm">
+        <img class="logo" src="images/${p.slug}.svg" alt="" loading="lazy" data-slug="${p.slug}">
+        <div>
+          <a href="${p.home}" target="_blank" rel="noopener"><strong>${p.name}</strong></a>
+          ${p.desc ? `<div class="desc">${p.desc}</div>` : ""}
+        </div>
+      </div>
+    </td>
+    <td class="plat" data-label="Platforms">${p.platforms.join(", ")}</td>
+    <td class="free" data-label="Why it is free">${FREEDOM[p.freedom].short}<div class="lic">${p.license}</div></td>
+    <td class="links" data-label="Links">${linksFor(p)}</td>
+  </tr>`;
+}
+
+function render() {
+  const host = document.getElementById("content");
+  let total = 0, shown = 0, html = "";
+
+  CATEGORIES.forEach(cat => {
+    const all = PROGRAMS.filter(p => p.cat === cat.id);
+    total += all.length;
+    const list = sortItems(all.filter(visible));
+    shown += list.length;
+    if (!list.length) return;
+    html += `<h2 id="${cat.id}">${cat.name}</h2>
+      <table class="ref"><thead><tr>
+        <th>Name</th><th>Platforms</th><th>Why it is free</th><th>Links</th>
+      </tr></thead><tbody>${list.map(rowFor).join("")}</tbody></table>`;
+  });
+
+  host.innerHTML = html;
+  document.getElementById("empty").style.display = shown ? "none" : "block";
+  document.getElementById("count").textContent = `${shown} of ${total} programs`;
+
+  // logo fallback: try .svg, then .png, then a monogram
+  host.querySelectorAll("img[data-slug]").forEach(img => {
+    img.addEventListener("error", () => {
+      const slug = img.dataset.slug;
+      if (img.src.endsWith(".svg")) {
+        img.src = `images/${slug}.png`;
+      } else {
+        const mono = document.createElement("span");
+        mono.className = "mono";
+        mono.textContent = slug.split("-").map(w => w[0]).join("").slice(0, 2).toUpperCase();
+        img.replaceWith(mono);
+      }
+    });
+  });
+}
+
+function renderToc() {
+  const items = CATEGORIES.map(c => `<li><a href="#${c.id}">${c.name}</a></li>`).join("");
+  document.getElementById("toc").innerHTML =
+    `<h2>Contents</h2><ol><li><a href="#about">How these are free</a></li>${items}</ol>`;
+}
+
+function flt(group, value, label) {
+  const on = state[group] === value ? " on" : "";
+  return `<a class="flt${on}" data-group="${group}" data-value="${value}" href="#">${label}</a>`;
+}
+
+function renderFilters() {
+  document.getElementById("ffilter").innerHTML = FREEDOM_FILTERS.map(([v, l]) => flt("freedom", v, l)).join("");
+  document.getElementById("pfilter").innerHTML = PLATFORM_FILTERS.map(([v, l]) => flt("platform", v, l)).join("");
+}
+
+/* ---- Events ---- */
+document.getElementById("search").addEventListener("input", e => {
+  state.q = e.target.value.trim().toLowerCase();
+  render();
+});
+
+document.getElementById("sort").addEventListener("change", e => {
+  state.sort = e.target.value;
+  render();
+});
+
+document.addEventListener("click", e => {
+  const a = e.target.closest(".flt");
+  if (!a) return;
+  e.preventDefault();
+  state[a.dataset.group] = a.dataset.value;
+  renderFilters();
+  render();
+});
+
+/* ---- Init ---- */
+renderToc();
+renderFilters();
+render();
+</script>
+</body>
+</html>
